@@ -6,9 +6,10 @@ from io import BytesIO
 
 from logic_ai import Text2ImageAPI
 
+from config import bot_api, ai_api, ai_secret
 
 def generate_img(text):
-	api = Text2ImageAPI('https://api-key.fusionbrain.ai/', 'B13402B10BB8C9885F544850D9EE42BD', '6DC4AD86399C8761FA79E4276257F8FC')
+	api = Text2ImageAPI('https://api-key.fusionbrain.ai/', ai_api, ai_secret)
 	model_id = api.get_model()
 	uuid = api.generate(text, model_id)
 	images = api.check_generation(uuid)[0]
@@ -25,7 +26,7 @@ def generate_img(text):
     # Отображаем изображение (опционально)
 	return image
 
-bot = telebot.TeleBot(token='7833026811:AAFtEeWQKbPcJVNVLafNXxfnSnOe-PaftiY')
+bot = telebot.TeleBot(token=bot_api)
 
 @bot.message_handler(commands=['start'])
 def hello(msg):
